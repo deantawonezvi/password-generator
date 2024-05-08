@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'JetBrainsMono Bold';
+    src: url('/public/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+}
+
+body {
+    font-family: 'JetBrainsMono Bold', sans-serif;
+}
