@@ -6,3 +6,23 @@
 body {
     font-family: 'JetBrainsMono Bold', sans-serif;
 }
+
+input[type='checkbox']:checked {
+    background-color: #023047;
+}
+input[type='checkbox']:checked:after {
+    content: '\2713';
+    color:white;
+}
+input[type='checkbox']{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 20px !important;
+    height: 20px !important;
+    appearance:none;
+    border-radius:10%;
+    border: 1px solid rgb(191 35 42 / 90%);
+    box-shadow: none;
+    font-size: 1em;
+}
