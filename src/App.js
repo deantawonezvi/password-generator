@@ -4,7 +4,6 @@ import {
   Button,
   ChakraProvider,
   Checkbox,
-  extendTheme,
   Grid,
   Slider, SliderFilledTrack, SliderThumb,
   SliderTrack,
@@ -14,14 +13,9 @@ import {
 import './App.css';
 import { FaRegCopy } from 'react-icons/fa';
 import { IoMdArrowForward } from 'react-icons/io';
+import { theme } from './theme';
 
-const theme = extendTheme({
-  colors: {
-    teal: {
-      500: '#a4ffaf',
-    },
-  },
-});
+
 
 function App() {
 
@@ -32,31 +26,31 @@ function App() {
 
           <VStack spacing={8} width={["100%", "80%", "60%", "40%", "30%"]}  align="start">
             <Box width="100%" textAlign="center">
-              <Text fontSize='2xl' color={'#82808d'} fontFamily={'JetBrainsMono Bold'}>Password Generator</Text>
+              <Text fontSize='2xl' color={'#82808d'} >Password Generator</Text>
             </Box>
-            <Box bg={'#24232b'} w='100%' p={4} color='white' fontFamily={'JetBrainsMono Bold'}>
+            <Box bg={'#24232b'} w='100%' p={4} color='white' >
               <FaRegCopy />
             </Box>
             <VStack bg={'#24232b'} w="100%" p={4} color="white" align="start" padding={5}>
               <br />
-              <Slider aria-label="slider-ex-1" colorScheme='teal' defaultValue={30}>
-                <SliderTrack bg={'black'}>
-                  <SliderFilledTrack />
+              <Slider aria-label="slider-ex-1" colorScheme='teal' defaultValue={10}>
+                <SliderTrack bg={'#18171f'} borderRadius={0} height={1.5}>
+                  <SliderFilledTrack borderRadius={0} />
                 </SliderTrack>
-                <SliderThumb />
+                <SliderThumb boxSize={5} />
               </Slider>
               <br />
               <Checkbox colorScheme="green" color="white"
-                        fontFamily={'JetBrainsMono Bold'} paddingY={1}>Include Uppercase letters</Checkbox>
+                         paddingY={1}>Include Uppercase letters</Checkbox>
               <Checkbox colorScheme="green"  color="white"
-                        fontFamily={'JetBrainsMono Bold'} paddingY={1}>Include Lowercase letters</Checkbox>
+                         paddingY={1}>Include Lowercase letters</Checkbox>
               <Checkbox colorScheme="green" color="white"
-                        fontFamily={'JetBrainsMono Bold'} paddingY={1}>Include Numbers</Checkbox>
+                         paddingY={1}>Include Numbers</Checkbox>
               <Checkbox colorScheme="green" color="white"
-                        fontFamily={'JetBrainsMono Bold'} paddingY={1}>Include Symbols</Checkbox>
+                         paddingY={1}>Include Symbols</Checkbox>
               <br />
               <Button rightIcon={<IoMdArrowForward />} color={'black'} colorScheme="teal" width="100%"
-                      fontFamily={'JetBrainsMono Bold'} borderRadius={0} padding={7} _hover={{ bg: 'teal.500' }}>
+                      borderRadius={0} padding={7} _hover={{ bg: 'teal.500' }}>
                 GENERATE
               </Button>
             </VStack>
