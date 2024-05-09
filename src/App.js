@@ -6,7 +6,7 @@ import {
   Grid, HStack,
   Slider, SliderFilledTrack, SliderThumb,
   SliderTrack,
-  Text,
+  Text, Tooltip,
   VStack,
 } from '@chakra-ui/react';
 import './App.css';
@@ -72,7 +72,19 @@ function App() {
     }
   }
 
-  return (
+  const [isCopied, setIsCopied] = useState(false);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy password: ', err);
+    }
+  }
+
+
+      return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl" bg={'#131218'}>
         <Grid minH="100vh" p={3} placeItems="center">
@@ -84,8 +96,13 @@ function App() {
             <Box bg={'#24232b'} w='100%' p={5} color='white'>
               <HStack justifyContent="space-between">
                 <Text fontSize='2xl' width={'90%'} textAlign='start'>{password}</Text>
-                <FaRegCopy color={'#a4ffaf'} />
+                <Tooltip label={isCopied ? "Copied!" : "Copy to clipboard"}>
+                  <Box onClick={() => copyToClipboard()}>
+                    <FaRegCopy color={'#a4ffaf'} onClick={() => copyToClipboard()} />
+                  </Box>
+                </Tooltip>
               </HStack>
+              {isCopied && <Text color={'#a4ffaf'}>Copied!</Text>}
             </Box>
             <VStack bg={'#24232b'} w="100%" p={4} color="white" align="start" padding={5}>
               <Box width={'100%'}>
@@ -134,7 +151,7 @@ function App() {
               <Box bg={'#18171f'} width={'100%'} padding={5}>
                 <HStack justifyContent='space-between'>
                   <Text fontSize='sm' color={'#74737f'}>STRENGTH</Text>
-                  <Text fontSize='sm' color={'#74737f'}>{passwordStrength}</Text>
+                  <Text fontSize='xl' color={'white'}>{passwordStrength}</Text>
                 </HStack>
               </Box>
               <br/>
