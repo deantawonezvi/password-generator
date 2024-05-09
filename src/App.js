@@ -75,6 +75,7 @@ function App() {
   const [isCopied, setIsCopied] = useState(false);
   const copyToClipboard = async () => {
     try {
+      if(!password) return;
       await navigator.clipboard.writeText(password);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
