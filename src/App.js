@@ -25,6 +25,7 @@ function App() {
   const [includeLowercase, setIncludeLowercase] = useState(false);
   const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   const generatePassword = () => {
     const numbers = '0123456789';
@@ -51,6 +52,26 @@ function App() {
     return password;
   };
 
+  function calculatePasswordStrength(password) {
+    let strength = 0;
+
+    if (/[A-Z]/.test(password)) strength++; // check for uppercase letters
+    if (/[a-z]/.test(password)) strength++; // check for lowercase letters
+    if (/\d/.test(password)) strength++; // check for numbers
+    if (/\W/.test(password)) strength++; // check for symbols
+
+    if (password.length > 10) strength++; // check for length
+
+    switch (strength) {
+      case 1: return 'EASY';
+      case 2: return 'FAIR';
+      case 3: return 'MEDIUM';
+      case 4: return 'MEDIUM'
+      case 5: return 'HARD';
+      default: return '';
+    }
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl" bg={'#131218'}>
@@ -62,7 +83,7 @@ function App() {
             </Box>
             <Box bg={'#24232b'} w='100%' p={5} color='white'>
               <HStack justifyContent="space-between">
-                <Text fontSize='2xl'>{password}</Text>
+                <Text fontSize='2xl' width={'90%'} textAlign='start'>{password}</Text>
                 <FaRegCopy color={'#a4ffaf'} />
               </HStack>
             </Box>
@@ -76,6 +97,7 @@ function App() {
 
               <br />
               <Slider aria-label="slider-ex-1" colorScheme='teal'
+                      min={5} max={30}
                       value={passwordLength}
                       onChange={(val) => setPasswordLength(val)}>
                 <SliderTrack bg={'#18171f'} borderRadius={0} height={1.5}>
@@ -110,11 +132,18 @@ function App() {
               </Checkbox>
               <br />
               <Box bg={'#18171f'} width={'100%'} padding={5}>
-                <Text fontSize='sm' color={'#74737f'}>STRENGTH</Text>
+                <HStack justifyContent='space-between'>
+                  <Text fontSize='sm' color={'#74737f'}>STRENGTH</Text>
+                  <Text fontSize='sm' color={'#74737f'}>{passwordStrength}</Text>
+                </HStack>
               </Box>
               <br/>
               <Button rightIcon={<IoMdArrowForward />} color={'black'} colorScheme="teal" width="100%"
-                      borderRadius={0} padding={7} _hover={{ bg: 'teal.500' }} onClick={() => setPassword(generatePassword())}>
+                      borderRadius={0} padding={7} _hover={{ bg: 'teal.500' }} onClick={() => {
+                const newPassword = generatePassword();
+                setPassword(newPassword);
+                setPasswordStrength(calculatePasswordStrength(newPassword));
+              }}>
                 GENERATE
               </Button>
             </VStack>
